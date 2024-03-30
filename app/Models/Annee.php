@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Annee extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        "debut","fin",
+    ];
 }

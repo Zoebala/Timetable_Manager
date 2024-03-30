@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Salle extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        "lib","ref",
+    ];
 }

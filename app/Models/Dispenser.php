@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Dispenser extends Model
 {
     use HasFactory;
+
+    protected $fillable=[
+        "enseignant_id","cours_id",
+    ];
+
+    
 }
