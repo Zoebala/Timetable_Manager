@@ -11,7 +11,7 @@ class Universite extends Model
 {
     use HasFactory;
     protected $fillable=[
-        "lib","codepostal","ville","adresse","email","description",
+        "lib","codepostal","ville","adresse","email","description","photo"
     ];
 
     public function sections()
