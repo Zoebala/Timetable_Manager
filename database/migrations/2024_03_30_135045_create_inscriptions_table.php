@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('inscriptions', function (Blueprint $table) {
             $table->id();
+            $table->boolean("actif")->default(false);
+            $table->unsignedBigInteger("departement_id");
+            $table->unsignedBigInteger("promotion_id");
+            $table->unsignedBigInteger("etudiant_id");
+            $table->unsignedBigInteger("annee_id");
             $table->timestamps();
         });
     }

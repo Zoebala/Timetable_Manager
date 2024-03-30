@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('dispensers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("enseignant_id");
+            $table->unsignedBigInteger("cours_id");
             $table->timestamps();
         });
     }

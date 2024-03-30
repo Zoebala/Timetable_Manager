@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
+            $table->date("debut")->nullable();
+            $table->date("fin")->nullable();
+            $table->unsignedBigInteger("cours_id");
+            $table->unsignedBigInteger("salle_id");
+            $table->json("jours");
             $table->timestamps();
         });
     }

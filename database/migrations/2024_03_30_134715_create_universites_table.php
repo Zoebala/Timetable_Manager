@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('universites', function (Blueprint $table) {
             $table->id();
+            $table->string("lib");
+            $table->integer("codepostal")->nullable();
+            $table->string("ville")->nullable();
+            $table->string("adresse");
+            $table->string("email");
+            $table->string("description")->nullable();
             $table->timestamps();
         });
     }

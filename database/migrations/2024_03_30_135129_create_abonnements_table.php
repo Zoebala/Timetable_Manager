@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('abonnements', function (Blueprint $table) {
             $table->id();
+            $table->boolean("actif")->default(false);
+            $table->unsignedBigInteger("etudiant_id");
             $table->timestamps();
         });
     }
