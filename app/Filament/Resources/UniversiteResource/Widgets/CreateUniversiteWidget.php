@@ -1,43 +1,36 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\UniversiteResource\Widgets;
 
-use Filament\Forms;
-use Filament\Tables;
 use Filament\Forms\Form;
 use App\Models\Universite;
-use Filament\Tables\Table;
+use Filament\Widgets\Widget;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Wizard;
+
 use Filament\Forms\Components\Section;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
-// use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Components\FileUpload;
+
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Components\MarkdownEditor;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\UniversiteResource\Pages;
-use App\Filament\Resources\UniversiteResource\RelationManagers;
-use App\Filament\Resources\UniversiteResource\Widgets\CreateUniversiteWidget;
+use Filament\Forms\Concerns\InteractsWithForms;
 
-class UniversiteResource extends Resource
+class CreateUniversiteWidget extends Widget implements HasForms
 {
-    protected static ?string $model = Universite::class;
+    use InteractsWithForms;
+    protected static string $view = 'filament.resources.universite-resource.widgets.create-universite-widget';
+    protected int | string | array $columnSpan = 'full';
 
-    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
-    protected static ?string $navigationGroup ="University Management";
-    protected static ?int $navigationSort = 1;
-    public static function getNavigationBadge():string
+    public function mount(): void
     {
-        return static::getModel()::count();
+        $this->form->fill();
     }
-    public static function getNavigationBadgecolor():string|array|null
-    {
-        return static::getModel()::count() > 5 ? 'success' : 'warning';
-    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -87,64 +80,14 @@ class UniversiteResource extends Resource
                         ->columnSpanfull()
                     ])
                 ])->columnSpanFull()->columns(2),
-            ])->columns(3);
+            ])->columns(3)
+            ->statePath('data');
     }
 
-    public static function table(Table $table): Table
+    public function create(): void
     {
-        return $table
-            ->columns([
-                //
-                TextColumn::make("lib")
-                ->label("Dénomination")
-                ->toggleable()
-                ->searchable(),
-                TextColumn::make("ville")
-                ->toggleable()
-                ->searchable(),
-                TextColumn::make("codepostal")
-                ->label("Code Postal")
-                ->toggleable()
-                ->searchable(),
-                ImageColumn::make("photo"),
-                TextColumn::make("email")
-                ->toggleable()
-                ->searchable(),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getWidgets(): array
-    {
-        return [
-            CreateUniversiteWidget::class,
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListUniversites::route('/'),
-            'create' => Pages\CreateUniversite::route('/create'),
-            'edit' => Pages\EditUniversite::route('/{record}/edit'),
-        ];
+        Universite::create($this->form->getState());
+        $this->form->fill();
+        $this->dispatch('universite-created');
     }
 }

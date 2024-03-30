@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\UniversiteResource\Pages;
 
-use App\Filament\Resources\UniversiteResource;
 use Filament\Actions;
+use Livewire\Attributes\On;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\UniversiteResource;
+use App\Filament\Resources\UniversiteResource\Widgets\CreateUniversiteWidget;
 
 class ListUniversites extends ListRecords
 {
@@ -16,4 +18,14 @@ class ListUniversites extends ListRecords
             Actions\CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            // CreateUniversiteWidget::class,
+        ];
+    }
+
+    #[On('universite-created')]
+    public function refresh() {}
 }
