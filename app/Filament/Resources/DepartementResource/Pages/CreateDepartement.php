@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateDepartement extends CreateRecord
 {
     protected static string $resource = DepartementResource::class;
+
+    protected function getCreatedNotificationTitle(): ? string
+    {
+        return "Enregistrement effectué avec succès!";
+    }
 }

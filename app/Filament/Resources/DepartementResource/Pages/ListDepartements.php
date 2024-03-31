@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\DepartementResource\Pages;
 
-use App\Filament\Resources\DepartementResource;
 use Filament\Actions;
+use Livewire\Attributes\On;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\DepartementResource;
+use App\Filament\Resources\DepartementResource\Widgets\CreateDepartementWidget;
 
 class ListDepartements extends ListRecords
 {
@@ -13,7 +15,17 @@ class ListDepartements extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            // Actions\CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            CreateDepartementWidget::class,
+        ];
+    }
+
+    #[On('departement-created')]
+    public function refresh() {}
 }
