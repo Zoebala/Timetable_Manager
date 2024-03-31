@@ -11,7 +11,7 @@ class Enseignant extends Model
 {
     use HasFactory;
     protected $fillable=[
-        "noms","fonction","tel","email","adresse",
+        "noms","fonction","tel","email","adresse","photo"
     ];
 
 

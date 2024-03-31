@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateEnseignant extends CreateRecord
 {
     protected static string $resource = EnseignantResource::class;
+
+    protected function getCreatedNotificationTitle(): ? string
+    {
+        return "Enregistrement effectué avec succès!";
+    }
 }

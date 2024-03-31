@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\EnseignantResource\Pages;
 
-use App\Filament\Resources\EnseignantResource;
 use Filament\Actions;
+use Livewire\Attributes\On;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\EnseignantResource;
+use App\Filament\Resources\EnseignantResource\Widgets\CreateEnseignantWidget;
 
 class ListEnseignants extends ListRecords
 {
@@ -13,7 +15,17 @@ class ListEnseignants extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            // Actions\CreateAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            CreateEnseignantWidget::class,
+        ];
+    }
+
+    #[On('enseignant-created')]
+    public function refresh() {}
 }

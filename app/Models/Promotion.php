@@ -11,7 +11,7 @@ class Promotion extends Model
 {
     use HasFactory;
     protected $fillable=[
-        "lib",
+        "lib","description",
     ];
 
     public function cours()
