@@ -14,6 +14,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Wizard\Step;
@@ -47,7 +48,10 @@ class SectionResource extends Resource
                 ->schema([
                     Select::make("universite_id")
                     ->label("Universite")
+                    // ->tooltip("choisir une université")
                     ->relationship('universite',"lib")
+                    ->searchable()
+                    ->preload()
                     ->live()
                     ->required()
                     ->columnspan(1),
@@ -65,6 +69,8 @@ class SectionResource extends Resource
                 ])->columns(2),
                 //gestion de département
                 Toggle::make("Depart")
+                ->disabled(fn(Get $get):bool => !filled($get("lib")))
+                // ->tooltip("salut")
                 ->label(function(Get $get){
                     if($get('Depart')==false){
                         return "Renseigner ses départements?";
@@ -108,12 +114,25 @@ class SectionResource extends Resource
         return $table
             ->columns([
                 //
+                TextColumn::make("universite.lib")
+                ->label("Université")
+                ->searchable()
+                ->toggleable(),
+                TextColumn::make("lib")
+                ->label("Section")
+                ->searchable()
+                ->toggleable(),
+                TextColumn::make("description")
+                ->searchable()
+                ->toggleable(),
+
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

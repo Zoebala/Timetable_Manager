@@ -9,4 +9,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAnnee extends CreateRecord
 {
     protected static string $resource = AnneeResource::class;
+
+    // protected function getCreatedNotificationTitle(): ? string
+    // {
+    //     return "Enregistrement effectué avec succès!";
+    // }
+
+
 }
