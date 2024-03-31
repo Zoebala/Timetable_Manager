@@ -29,14 +29,14 @@ class UniversiteResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
     protected static ?string $navigationGroup ="University Management";
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
     public static function getNavigationBadge():string
     {
         return static::getModel()::count();
     }
     public static function getNavigationBadgecolor():string|array|null
     {
-        return static::getModel()::count() > 5 ? 'success' : 'warning';
+        return static::getModel()::count() > 5 ? 'success' : 'success';
     }
     public static function form(Form $form): Form
     {

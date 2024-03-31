@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("lib");
             $table->unsignedBigInteger("section_id");
-            $table->string("description");
+            $table->string("description")->nullable();
             $table->timestamps();
         });
     }
