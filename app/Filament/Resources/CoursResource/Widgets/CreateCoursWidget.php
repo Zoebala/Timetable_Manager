@@ -40,7 +40,7 @@ class CreateCoursWidget extends Widget implements HasForms
                     Step::make("Informations Cours")
                     ->schema([
                         Section::make("")
-                        ->collapsible()
+                        // ->collapsible()
                         ->schema([
                             Select::make("departement_id")
                             ->label("Departement")
