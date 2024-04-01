@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Filament\Resources\EnseignantResource\Widgets;
+namespace App\Filament\Resources\EtudiantResource\Widgets;
 
+use App\Models\Etudiant;
 use Filament\Forms\Form;
-use App\Models\Enseignant;
 use Filament\Widgets\Widget;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Concerns\InteractsWithForms;
 
-class CreateEnseignantWidget extends Widget implements HasForms
+class CreateEtudiantWidget extends Widget implements HasForms
 {
     use InteractsWithForms;
-    protected static string $view = 'filament.resources.enseignant-resource.widgets.create-enseignant-widget';
+    protected static string $view = 'filament.resources.etudiant-resource.widgets.create-etudiant-widget';
+
     protected int | string | array $columnSpan = 'full';
 
     public ?array $data = [];
@@ -24,16 +26,17 @@ class CreateEnseignantWidget extends Widget implements HasForms
     {
         $this->form->fill();
     }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 //
-                Section::make("Identification de l'enseignant")
+                Section::make("Identification de l'étudiant")
                 ->icon("heroicon-o-user-plus")
                 ->schema([
-                    // TextInput::make("matricule")
-                    // ->columnspan(1),
+                    TextInput::make("matricule")
+                    ->columnspan(1),
                     TextInput::make("noms")
                     ->required()
                     ->placeholder("Ex: Matondo Kuanzambi lorette")
@@ -43,20 +46,9 @@ class CreateEnseignantWidget extends Widget implements HasForms
                     ->required()
                     ->placeholder("Ex: 0896071804")
                     ->maxlength(10),
-                    TextInput::make("fonction")
-                    ->label("Fonction")
-                   ->placeholder("Choisir(double clic) ou éditer votre fonction")
+                    DatePicker::make("datenais")
+                    ->label("Date de Naissance")
                    ->required()
-                   ->datalist(
-                       [
-
-                           "Professeur Ordinaire" =>"Professeur Ordinaire",
-                           "Professeur Associé"=>"Professeur Associé",
-                           "Professeur"=>"Professeur",
-                           "Chef de Travaux"=>"Chef de Travaux",
-                           "Assistant" =>"Assistant",
-                       ]
-                   )
                    ->columnSpan(1),
                    TextInput::make("adresse")
                    ->label("Adresse")
@@ -64,8 +56,9 @@ class CreateEnseignantWidget extends Widget implements HasForms
                    ->columnSpan(1),
                    TextInput::make("email")
                   ->email()
+                  ->unique("etudiants")
                   ->placeholder("Ex: enseignant@exemple.com")
-                  ->columnSpanFull(),
+                  ->columnSpan(1),
 
                 ])->columns(2)->columnSpan(2),
                 Section::make("Votre profil")
@@ -75,14 +68,14 @@ class CreateEnseignantWidget extends Widget implements HasForms
                     ->disk("public")->directory("photos"),
                 ])->columnSpan(1),
             ])->columns(3)->statePath("data");
-    }
 
+    }
 
     public function create(): void
     {
-        Enseignant::create($this->form->getState());
+        Etudiant::create($this->form->getState());
         $this->form->fill();
-        $this->dispatch('enseignant-created');
+        $this->dispatch('etudiant-created');
 
         Notification::make()
         ->title('Enregistrement effectué avec succès')

@@ -10,6 +10,7 @@ use Filament\Widgets\Widget;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
 
 class CreateAnneeWidget extends Widget implements HasForms
@@ -64,5 +65,11 @@ class CreateAnneeWidget extends Widget implements HasForms
         Annee::create($this->form->getState());
         $this->form->fill();
         $this->dispatch('Annee-created');
+
+        Notification::make()
+        ->title('Enregistrement effectué avec succès')
+        ->success()
+         ->duration(5000)
+        ->send();
     }
 }

@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string("noms");
             $table->date("datenais");
             $table->string("tel");
+            $table->string("adresse");
             $table->string("email")->nullable();
+            $table->string("photo")->nullable();
             $table->timestamps();
         });
     }

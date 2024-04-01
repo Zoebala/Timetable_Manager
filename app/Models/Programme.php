@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cours;
 use App\Models\Salle;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,11 +17,15 @@ class Programme extends Model
     ];
 
     protected $casts=[
-        "jours"=>array(),
+        "jours"=>'array',
     ];
 
     public function salle()
     {
         return $this->BelongsTo(Salle::class);
+    }
+    public function cours()
+    {
+        return $this->BelongsTo(Cours::class);
     }
 }

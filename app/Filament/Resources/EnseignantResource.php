@@ -44,8 +44,8 @@ class EnseignantResource extends Resource
                 //
                 Section::make("")
                 ->schema([
-                    TextInput::make("matricule")
-                    ->columnspan(1),
+                    // TextInput::make("matricule")
+                    // ->columnspan(1),
                     TextInput::make("noms")
                     ->required()
                     ->placeholder("Ex: Matondo Kuanzambi lorette")
@@ -70,14 +70,14 @@ class EnseignantResource extends Resource
                        ]
                    )
                    ->columnSpan(1),
-                     TextInput::make("email")
-                    ->email()
-                    ->placeholder("Ex: enseignant@exemple.com")
-                    ->columnSpan(1),
-                     TextInput::make("adresse")
-                     ->label("Adresse")
-                    ->placeholder("Ex: 13, Av. Mobutu Q/Loma")
-                    ->columnSpan(1),
+                   TextInput::make("adresse")
+                   ->label("Adresse")
+                   ->placeholder("Ex: 13, Av. Mobutu Q/Loma")
+                   ->columnSpan(1),
+                   TextInput::make("email")
+                  ->email()
+                  ->placeholder("Ex: enseignant@exemple.com")
+                  ->columnSpanFull(),
 
                 ])->columns(2)->columnSpan(2),
                 Section::make("Votre profil")
@@ -94,9 +94,6 @@ class EnseignantResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make("matricule")
-                ->searchable()
-                ->toggleable(),
                 TextColumn::make("noms")
                 ->label("Noms")
                 ->searchable()

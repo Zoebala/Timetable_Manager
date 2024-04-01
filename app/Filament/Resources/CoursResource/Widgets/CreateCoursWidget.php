@@ -12,6 +12,7 @@ use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -85,6 +86,12 @@ class CreateCoursWidget extends Widget implements HasForms
         Cours::create($this->form->getState());
         $this->form->fill();
         $this->dispatch('cours-created');
+
+        Notification::make()
+        ->title('Enregistrement effectué avec succès')
+        ->success()
+         ->duration(5000)
+        ->send();
     }
 
 }

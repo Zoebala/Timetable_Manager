@@ -70,7 +70,7 @@ class CreateUniversiteWidget extends Widget implements HasForms
                         ->description("Profile de votre Institution")
                         ->schema([
                                 FileUpload::make("photo")
-                                ->disk("public")->directory("photos")
+                                ->disk("public")->directory("photos"),
                             ])->columnspan(1),
                     ])->columns(3),
                     Step::make("Description")

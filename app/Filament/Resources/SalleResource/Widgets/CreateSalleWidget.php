@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Filament\Resources\PromotionResource\Widgets;
+namespace App\Filament\Resources\SalleResource\Widgets;
 
-use Filament\Forms\Get;
+use App\Models\Salle;
 use Filament\Forms\Form;
-use App\Models\Promotion;
 use Filament\Widgets\Widget;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
-use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Concerns\InteractsWithForms;
 
-class CreatePromotionWidget extends Widget implements HasForms
+class CreateSalleWidget extends Widget implements HasForms
 {
     use InteractsWithForms;
-    protected static string $view = 'filament.resources.promotion-resource.widgets.create-promotion-widget';
+
+    protected static string $view = 'filament.resources.salle-resource.widgets.create-salle-widget';
+
 
     protected int | string | array $columnSpan = 'full';
 
@@ -26,29 +26,36 @@ class CreatePromotionWidget extends Widget implements HasForms
     {
         $this->form->fill();
     }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 //
-                Section::make("Définition des promotions")
-                ->icon("heroicon-o-users")
+                Section::make("Définition des Salles")
+                ->icon("heroicon-o-building-storefront")
                 ->schema([
                     TextInput::make("lib")
-                    ->label("Promotion")
-                    ->live(debounce:900)
-                    ->required()
-                    ->placeholder("Ex: L1 math"),
-                    MarkdownEditor::make("description")
-                    ->disabled(fn(Get $get):bool => !filled($get("lib")))
-                ]),
+                    ->label("Salle")
+                    ->columnspan(1)
+                    ->placeholder("Ex: Auditorium")
+                    ->required(),
+                    TextInput::make("ref")
+                    ->label("Référence")
+                    ->placeholder("Ex: Entrée ISP/Mbanza-ngungu")
+                    ->columnspan(1),
+
+                ])->columns(2),
+
+
             ])->statePath("data");
     }
+
     public function create(): void
     {
-        Promotion::create($this->form->getState());
+        Salle::create($this->form->getState());
         $this->form->fill();
-        $this->dispatch('promotion-created');
+        $this->dispatch('salle-created');
 
         Notification::make()
         ->title('Enregistrement effectué avec succès')
