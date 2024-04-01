@@ -11,9 +11,10 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\ImageColumn;
 // use Filament\Forms\Components\Wizard\Step;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Wizard\Step;
@@ -29,8 +30,20 @@ class UniversiteResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
     protected static ?string $navigationGroup ="University Management";
+    protected static ?string $recordTitleAttribute ="lib";
 
     protected static ?int $navigationSort = 2;
+    public static function getGlobalSearchResultTitle(Model $record):string
+    {
+        return $record->lib;
+    }
+    public static function getGloballySearchableAttributes():array
+    {
+        return [
+            "lib",
+
+        ];
+    }
     public static function getNavigationBadge():string
     {
         return static::getModel()::count();
