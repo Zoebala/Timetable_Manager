@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Salle;
 use App\Models\Promotion;
 use App\Models\Enseignant;
 use App\Models\Departement;
@@ -19,7 +20,7 @@ class Cours extends Model
 
     public function enseignants()
     {
-        return $this->BelongsToMany(Enseignant::class,"dispensers");
+        return $this->BelongsToMany(Enseignant::class,"dispensers")->withTimestamps();
     }
 
     public function promotion()
@@ -31,4 +32,7 @@ class Cours extends Model
     {
         return $this->BelongsTo(Departement::class);
     }
+
+
+    
 }

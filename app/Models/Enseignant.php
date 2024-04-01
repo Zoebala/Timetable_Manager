@@ -17,6 +17,6 @@ class Enseignant extends Model
 
     public function cours()
     {
-        return $this->BelongsToMany(Cours::class,"dispensers");
+        return $this->BelongsToMany(Cours::class,"dispensers")->withTimestamps();
     }
 }
