@@ -48,7 +48,7 @@ class StatsAppOverview extends BaseWidget
                 ->description('Toutes les inscriptions')
                 ->Icon('heroicon-o-clipboard-document-list')
                 ->color('warning'),
-                Stat::make('Salle', Salle::query()->count())
+                Stat::make('Salles', Salle::query()->count())
                 ->description('Toutes les salles')
                 ->Icon('heroicon-o-home')
                 ->color('success'),
