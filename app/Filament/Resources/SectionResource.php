@@ -22,6 +22,7 @@ use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\SectionResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\SectionResource\RelationManagers;
+use App\Filament\Resources\SectionResource\RelationManagers\DepartementsRelationManager;
 
 class SectionResource extends Resource
 {
@@ -145,6 +146,8 @@ class SectionResource extends Resource
     {
         return [
             //
+            DepartementsRelationManager::class,
+
         ];
     }
 

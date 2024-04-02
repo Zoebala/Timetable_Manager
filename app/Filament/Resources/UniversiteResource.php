@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UniversiteResource\Pages;
 use App\Filament\Resources\UniversiteResource\RelationManagers;
 use App\Filament\Resources\UniversiteResource\Widgets\CreateUniversiteWidget;
+use App\Filament\Resources\UniversiteResource\RelationManagers\SectionsRelationManager;
 
 class UniversiteResource extends Resource
 {
@@ -143,6 +144,7 @@ class UniversiteResource extends Resource
     {
         return [
             //
+            SectionsRelationManager::class,
         ];
     }
 
