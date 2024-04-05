@@ -8,6 +8,7 @@ use App\Models\Cours;
 use App\Models\Salle;
 use Filament\Forms\Form;
 use App\Models\Programme;
+use App\Models\Enseignant;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
@@ -75,6 +76,14 @@ class ProgrammeResource extends Resource
                     ->label("Heure Fin")
                     ->columnSpan(1)
                     ->required(),
+                    Select::make("enseignant_id")
+                    ->label("Enseignant")
+                    ->options(function(){
+                        return Enseignant::query()->pluck("noms","id");
+                    })
+                    ->searchable()
+                    ->preload()
+                    ->columnSpanFull(),
                 ])->columns(2)->columnSpan(2),
                 Section::make("Jours de prestations du cours")
                 ->Icon("heroicon-o-calendar-days")
@@ -118,6 +127,10 @@ class ProgrammeResource extends Resource
                 ->toggleable(),
                 TextColumn::make("jours")
                 ->label('Jours')
+                ->searchable()
+                ->toggleable(),
+                TextColumn::make("enseignant.noms")
+                ->label('Enseignant')
                 ->searchable()
                 ->toggleable(),
 

@@ -6,6 +6,7 @@ use App\Models\Cours;
 use App\Models\Salle;
 use Filament\Forms\Form;
 use App\Models\Programme;
+use App\Models\Enseignant;
 use Filament\Widgets\Widget;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
@@ -66,6 +67,14 @@ class CreateProgrammeWidget extends Widget implements HasForms
                     ->label("Heure Fin")
                     ->columnSpan(1)
                     ->required(),
+                    Select::make("enseignant_id")
+                    ->label("Enseignant")
+                    ->options(function(){
+                        return Enseignant::query()->pluck("noms","id");
+                    })
+                    ->searchable()
+                    ->preload()
+                    ->columnSpanFull(),
                 ])->columns(2)->columnSpan(2),
                 Section::make("Jours de prestations du cours")
                 ->Icon("heroicon-o-calendar-days")

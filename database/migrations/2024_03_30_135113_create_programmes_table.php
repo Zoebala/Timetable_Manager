@@ -17,6 +17,7 @@ return new class extends Migration
             $table->time("fin")->nullable();
             $table->unsignedBigInteger("cours_id");
             $table->unsignedBigInteger("salle_id");
+            $table->unsignedBigInteger("enseignant_id");
             $table->json("jours");
             $table->timestamps();
         });
